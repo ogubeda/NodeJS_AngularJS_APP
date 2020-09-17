@@ -17,6 +17,7 @@ import './services';
 import './auth';
 import './settings';
 import './editor';
+import './music';
 
 
 // Create and bootstrap application

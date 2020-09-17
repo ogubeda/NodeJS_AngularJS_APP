@@ -4,8 +4,6 @@ var Song = mongoose.model("Song");
 var auth = require('../auth');
 var User = mongoose.model('User');
 
-
-// Preload hotels objects on routes with ':hotels'
 router.param('song', function(req, res, next, slug) {
   Song.findOne({ slug: slug})
     .then(function (song) {
@@ -15,8 +13,6 @@ router.param('song', function(req, res, next, slug) {
     }).catch(next);
 });
 
-
-//obtenim tots el hotels
 router.get("/",auth.optional, function(req, res, next) {
   Promise.resolve(
     req.payload ? User.findById(req.payload.id): null
@@ -32,7 +28,6 @@ router.get("/",auth.optional, function(req, res, next) {
  
 });
 
-//obtenim un hotel per el slug get(http://localhost:3001/api/hotels/vernissa)
 router.get("/:slug", function(req, res, next) {
   Hotels.findOne({ slug: req.params.slug })
     .then(function(hotels) {
@@ -44,17 +39,15 @@ router.get("/:slug", function(req, res, next) {
     .catch(next);
 });
 
-//obtenim les categories
 router.get('/:hotel/category', function(req, res, next) {
   Hotels.find().distinct('category').then(function(category){
     return res.json({category: category});
   }).catch(next);
- });
+});
 
-//insertem un hotel
 router.post("/", function(req, res, next) {
   var song = new Song(req.body.song);
-  console.log(song);
+
   return song
     .save()
     .then(function() {
@@ -63,7 +56,6 @@ router.post("/", function(req, res, next) {
     .catch(next);
 });
 
-//delete an hotel
 router.delete("/:slug", function(req, res, next) { //search by slug
   Hotels.findOne({ slug: req.params.slug }) //delete
     .then(function(hotels) {
@@ -93,8 +85,6 @@ router.delete("/:slug", function(req, res, next) { //search by slug
     .catch(next);
 });*/
 
-// Agregar como favorito
-
 router.post('/:hotels/favorite', auth.required, function(req, res, next) {
   var hotelId = req.hotels._id;
   
@@ -109,7 +99,6 @@ router.post('/:hotels/favorite', auth.required, function(req, res, next) {
   }).catch(next);
 });
 
-// // Desagregar como favorito
 router.delete('/:hotels/favorite', auth.required, function(req, res, next) {
   var hotelId = req.hotels._id;
 

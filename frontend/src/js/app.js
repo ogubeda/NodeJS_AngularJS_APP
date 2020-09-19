@@ -17,7 +17,7 @@ import './services';
 import './auth';
 import './settings';
 import './editor';
-import './music';
+import './songs';
 
 
 // Create and bootstrap application
@@ -27,6 +27,8 @@ const requires = [
   'app.layout',
   'app.components',
   'app.home',
+  'app.songs',
+  // 'app.detailsSongs',
   'app.profile',
   'app.article',
   'app.services',

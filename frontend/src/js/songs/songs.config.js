@@ -1,14 +1,13 @@
 function SongsConfig($stateProvider) {
-    "ngInject";
+    'ngInject';
 
     $stateProvider
-
-        .state("app.songs", {
-            url: "/songs",
-            controller: "SongsCtrl",
-            controllerAs: "$ctrl",
-            templateUrl: "songs/songs.html",
-            title: "Songs",
+        .state('app.songs', {
+            url: '/songs',
+            controller: 'SongsCtrl',
+            controllerAs: '$ctrl',
+            templateUrl: 'songs/songs.html',
+            title: 'Songs',
             resolve: {
                 songs: function(Songs) {
                     return Songs.getSongs().then(songs => songs);
@@ -28,4 +27,6 @@ function SongsConfig($stateProvider) {
                 }// end_song
             }// end_resolve
         })// end_app.detailsSongs
-}// end_SongsConfig
+};// end_SongsConfig
+
+export default SongsConfig;

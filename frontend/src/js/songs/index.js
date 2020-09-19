@@ -11,7 +11,4 @@ songsModule.controller('SongsCtrl', SongsCtrl);
 import DetailsSongsCtrl from './detailsSongs.controller';
 songsModule.controller('DetailsSongsCtrl', DetailsSongsCtrl);
 
-import ListaHotelesCtrl from './listaHoteles.controller';
-songsModule.controller('ListaHotelesCtrl', ListaHotelesCtrl);
-
 export default songsModule;

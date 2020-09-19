@@ -8,11 +8,11 @@ export default class Songs {
     }
 
     getSongs() {
-      return this.$http({
-        url: this._AppConstants.api + "/songs/",
+      return this._$http({
+        url: this._AppConstants.api + "/songs",       
         method: "GET"
       }).then(res => {
-        return res.data.songs;
+        return res.data.song;
       });
     }// end_getSongs
 

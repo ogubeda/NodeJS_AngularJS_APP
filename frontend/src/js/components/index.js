@@ -27,4 +27,7 @@ componentsModule.component('articleList', ArticleList);
 import ListPagination from './article-helpers/list-pagination.component';
 componentsModule.component('listPagination', ListPagination);
 
+import SongsList from './songs-helpers/songs-list.component';
+componentsModule.component('songsList', SongsList);
+
 export default componentsModule;

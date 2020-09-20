@@ -4,10 +4,12 @@ class SongsCtrl {
 
         this._$scope = $scope,
         this.songs = songs,
+        console.log(songs[1].id);
         this.filter = $stateParams.filter;
 
         this._$scope.showDetails = function() {
-            $state.go("app.detailsSongs", {slug: this.hotel["slug"]});
+            console.log('miau');
+            // $state.go("app.detailsSongs", {slug: this.hotel["slug"]});
         }// end_showDetails
     }// end_constructor
 }// end_SongsCtrl

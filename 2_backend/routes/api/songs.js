@@ -29,12 +29,12 @@ router.get("/",auth.optional, function(req, res, next) {
 });
 
 router.get("/:slug", function(req, res, next) {
-  Hotels.findOne({ slug: req.params.slug })
-    .then(function(hotels) {
-      if (!hotels) {
+  Song.findOne({ slug: req.params.slug })
+    .then(function(songs) {
+      if (!songs) {
         return res.sendStatus(401);
       }
-      return res.json({ hotel: hotels });
+      return res.json({ song: songs });
     })
     .catch(next);
 });

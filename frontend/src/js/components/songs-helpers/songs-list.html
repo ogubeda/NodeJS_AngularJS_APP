@@ -1,5 +1,7 @@
-<div class = "article-meta" ng-repeat = "song in $ctrl.songs" ui-sref = "app.detailsSong({id:song.slug})">
-    <div>{{song.title}}</div>
-    <div>{{song.group}}</div>
-    <div>{{song.releaseDate}}</div>
+<div class = "article-meta" ng-repeat = "song in $ctrl.songs">
+    <div ui-sref = "app.details({slug:song.slug})">
+        <div>{{song.title}}</div>
+        <div>{{song.group}}</div>
+        <div>{{song.releaseDate}}</div>
+    </div>
 </div>

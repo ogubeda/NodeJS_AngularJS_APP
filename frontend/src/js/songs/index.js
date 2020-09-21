@@ -8,7 +8,4 @@ songsModule.config(SongsConfig);
 import SongsCtrl from './songs.controller';
 songsModule.controller('SongsCtrl', SongsCtrl);
 
-import DetailsSongsCtrl from './detailsSongs.controller';
-songsModule.controller('DetailsSongsCtrl', DetailsSongsCtrl);
-
 export default songsModule;

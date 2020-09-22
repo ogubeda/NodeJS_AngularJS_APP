@@ -10,6 +10,7 @@ var SongSchema = new mongoose.Schema({
   duration: Number,
   favoritesCount: {type: Number, default: 0},
   releaseDate: String,
+  uploaded: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
   tagList: [{ type: String }],
 }, {timestamps: true});
 
@@ -46,6 +47,7 @@ SongSchema.methods.toJSONFor = function(user){
     favoritesCount: this.favoritesCount,
     releaseDate: this.releaseDate,
     favorited: user ? user.isFavorite(this._id) : false,
+    uploaded: this.uploaded.toProfileJSONFor(user),
     tagList: this.tagList,
   };
 };

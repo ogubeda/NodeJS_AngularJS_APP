@@ -45,15 +45,20 @@ router.get('/:hotel/category', function(req, res, next) {
   }).catch(next);
 });
 
-router.post("/", function(req, res, next) {
-  var song = new Song(req.body.song);
+router.post("/", auth.required, function(req, res, next) {
+  User.findById(req.payload.id).then(function(user) {
+    if (!user) { return res.sendStatus(401); }
+    var song = new Song(req.body.song);
+    song.uploaded = user;
 
   return song
     .save()
     .then(function() {
-      res.json({ song: song.toJSONFor() });
+      res.json({ song: song.toJSONFor(user) });
     })
     .catch(next);
+  });
+  
 });
 
 router.delete("/:slug", function(req, res, next) { //search by slug

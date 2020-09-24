@@ -43,6 +43,9 @@ require('./models/Comment');
 require('./models/Song');
 require('./config/passport');
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(require('./routes'));
 
 /// catch 404 and forward to error handler

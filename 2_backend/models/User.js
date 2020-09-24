@@ -50,6 +50,7 @@ UserSchema.methods.toAuthJSON = function(){
 };
 
 UserSchema.methods.toProfileJSONFor = function(user){
+  console.log(user);
   return {
     username: this.username,
     bio: this.bio,

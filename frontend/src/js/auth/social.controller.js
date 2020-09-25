@@ -12,13 +12,9 @@ class SocialCtrl {
 
         this._User.attemptAuth(this.authType, null).then(
             (res) => {
-              this._toaster.showToastr('success','Successfully Logged In');
-              if(res.data.user.type == "admin"){
-                this._$state.go('app.adminpanel');
-              }else {
-                location.reload();
+              location.reload();
                 this._$state.go('app.home');
-              }
+              // this._toastr.showToastr('success','Successfully Logged In');
             },
             (err) => {
             //   this._toaster.showToastr('error','Error trying to login');

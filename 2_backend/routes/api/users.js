@@ -96,7 +96,10 @@ router.post('/users/sociallogin', function(req, res, next){
   });
 });
 
-router.get('/auth/googleplus', passport.authenticate('google'));
+router.get('/auth/googleplus', passport.authenticate('google', { scope: [
+  'https://www.googleapis.com/auth/plus.login',
+  'https://www.googleapis.com/auth/plus.profile.emails.read'
+]}));
 router.get('/auth/googleplus/callback',
   passport.authenticate('google',{
   successRedirect : 'http://localhost:4000/#!/auth/sociallogin',

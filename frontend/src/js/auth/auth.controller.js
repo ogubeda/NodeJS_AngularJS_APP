@@ -1,11 +1,12 @@
 class AuthCtrl {
-  constructor(User, $state, auth) {
+  constructor(User, $state, auth, Toastr) {
     'ngInject';
 
     this._User = User;
     this._$state = $state;
     this.title = $state.current.title;
     this.authType = $state.current.name.replace('app.', '');
+    this._toastr = Toastr;
 
   }
 
@@ -17,6 +18,7 @@ class AuthCtrl {
         this._$state.go('app.home');
       },
       (err) => {
+        this._toastr.showToastr('error','Error trying to login');
         this.isSubmitting = false;
         this.errors = err.data.errors;
       }

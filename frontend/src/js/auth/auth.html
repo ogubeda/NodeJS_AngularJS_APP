@@ -17,33 +17,43 @@
 
         <list-errors errors="$ctrl.errors"></list-errors>
 
-        <form name = "formData" ng-submit="$ctrl.submitForm()">
+        <form name = "formData" ng-submit="$ctrl.submitForm()" autocomplete="off">
           <fieldset ng-disabled="$ctrl.isSubmitting">
 
-            <fieldset class="form-group" ng-show="$ctrl.authType === 'register'">
+            <fieldset class="form-group" ng-show="$ctrl.authType === 'register'" ng-disabled = "$ctrl.authType != 'register'">
               <input class="form-control form-control-lg"
                 type="text"
                 placeholder="Username"
-                ng-model="$ctrl.formData.username"/>
-                <!-- <div ng-messages = "formData.Username.$error" style = "color: red; font-weight: bold">
-                  <p ng-message = "required" ng-show = "formData.Username.$dirty">Username is required.</p>
+                ng-model="$ctrl.formData.username" name = "Username" ng-minlength="3" ng-maxlength="20" required/>
+                <div ng-messages = "formData.Username.$error" style = "color: red; font-weight: bold">
+                  <p ng-message = "required" ng.show = "formData.Username.$dirty">This filed is required.</p>
                   <p ng-message = "minlength">Enter more than 3 characters.</p>
                   <p ng-message = "maxlength">Enter less than 20 characters.</p>
-                </div> -->
+                </div>
             </fieldset>
 
             <fieldset class="form-group">
               <input class="form-control form-control-lg"
                 type="email"
                 placeholder="Email"
-                ng-model="$ctrl.formData.email" />
+                ng-model="$ctrl.formData.email" name = "Email" ng-minlength="6" ng-maxlength="25" required/>
+                <div ng-messages = "formData.Email.$error" style = "color: red; font-weight: bold">
+                  <p ng-message = "required" ng-show = "formData.Email.$dirty">This field is required.</p>
+                  <p ng-message = "minlength">Enter more than 6 characters.</p>
+                  <p ng-message = "maxlength">Enter less than 25 characters.</p>
+                </div>
             </fieldset>
 
             <fieldset class="form-group">
               <input class="form-control form-control-lg"
                 type="password"
                 placeholder="Password"
-                ng-model="$ctrl.formData.password" />
+                ng-model="$ctrl.formData.password" name = "Password" required ng-minlength="8" ng-maxlength="16"/>
+                <div ng-messages = "formData.Password.$error" style = "color: red; font-weight: bold">
+                  <p ng-message = "required" ng-show = "formData.Password.$dirty">This field is required.</p>
+                  <p ng-message = "minlength">Enter more than 8 characters.</p>
+                  <p ng-message = "maxlength">Enter less than 16 characters.</p>
+                </div>
             </fieldset>
 
             <button class="btn btn-lg btn-primary pull-xs-right"

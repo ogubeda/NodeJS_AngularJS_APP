@@ -28,6 +28,13 @@ router.get("/", auth.optional, function (req, res, next) {
 
 });
 
+router.get("/taglist", function(req, res, next) {
+  Song.distinct('tagList')
+  .then(function(tagList) {
+      return res.json({tagList: tagList})
+  }).catch(next);
+});
+
 router.get("/:slug", function (req, res, next) {
   Song.findOne({ slug: req.params.slug })
     .then(function (songs) {

@@ -1,17 +1,24 @@
 class SongsCtrl {
-    constructor(songs, $state, $scope, $stateParams) {
+    constructor(songs, $state, $stateParams) {
         "ngInject";
 
-        this._$scope = $scope,
-        this.songs = songs,
+        this.songs = [],
         this.filter = $stateParams.filter;
 
-        this._$scope.showDetails = function() {
-            console.log('miau');
-            // $state.go("app.detailsSongs", {slug: this.hotel["slug"]});
-        }// end_showDetails
+        if (this.filter) {
+            for (let song in songs) {
+                if (songs[song].tagList.includes(this.filter)) {
+                    this.songs.push(songs[song]);
+                }// end_if
+            }
+        }else {
+            this.songs = songs;
+        }// end_else
 
-        console.log(this._$scope);
+        this.clearFilters = function() {
+            this.filter = false;
+            this.songs = songs;
+        }// end_clearFilters
     }// end_constructor
 }// end_SongsCtrl
 

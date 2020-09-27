@@ -56,10 +56,18 @@
                 </div>
             </fieldset>
 
-            <button class="btn btn-lg btn-primary pull-xs-right"
-              type="submit"
-              ng-bind="::$ctrl.title">
-            </button>
+            <div ng-show = "$ctrl.authType === 'register'">
+              <button class="btn btn-lg btn-primary pull-xs-right"
+                type="submit"
+                ng-bind="::$ctrl.title" ng-disabled = "formData.Username.$invalid || formData.Email.$invalid || formData.Password.$invalid">
+              </button>
+            </div>
+            <div ng-show = "$ctrl.authType === 'login'">
+              <button class="btn btn-lg btn-primary pull-xs-right"
+                type="submit"
+                ng-bind="::$ctrl.title" ng-disabled = "formData.Email.$invalid || formData.Password.$invalid">
+              </button>
+            </div>
 
 
             <a href="http://localhost:3000/api/auth/github" style="font-size: 25px; color:black"><i class="ion-social-github"></i>Github</a>

@@ -23,6 +23,15 @@ export default class Songs {
       }).then(res => res.data.song);
     }//end_getSong
 
+    getTagList() {
+      return this._$http({
+        url: this._AppConstants.api + '/songs/taglist',
+        method: "GET"
+      }).then(res => {
+        return res.data.tagList;
+      });
+    }
+
     addFav(slug) {
       return this._$http({
         url: this.AppConstants.api + "/songs/" + slug + "/favorite",

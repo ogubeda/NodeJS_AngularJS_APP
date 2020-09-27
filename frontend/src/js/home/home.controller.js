@@ -1,11 +1,11 @@
 class HomeCtrl {
-  constructor(AppConstants, $scope, songs) {
+  constructor(AppConstants, tagList) {
     'ngInject';
 
     this.appName = AppConstants.appName;
-    this._$scope = $scope;
-    this.songs = songs;
-  }
+    this.tagList = tagList;
+
+  }// end_constructor
 }
 
 export default HomeCtrl;

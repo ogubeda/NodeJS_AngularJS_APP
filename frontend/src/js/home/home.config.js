@@ -9,8 +9,8 @@ function HomeConfig($stateProvider) {
     templateUrl: 'home/home.html',
     title: 'Home',
     resolve: {
-      songs: function(Songs) {
-        return Songs.getSongs().then((songs) => songs);
+      tagList: function(Songs) {
+        return Songs.getTagList().then((tagList) => tagList);
       }
     }
   });

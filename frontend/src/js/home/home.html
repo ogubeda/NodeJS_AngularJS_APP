@@ -1,1 +1,6 @@
-<songs-list songs = "$ctrl.songs"></songs-list>
+<home-slider></home-slider>
+<div id = "container-tagList">
+    <div ng-repeat = "tagList in $ctrl.tagList">
+        <div style = "text-transform: uppercase;"  ui-sref = "app.songs({filter:tagList})">{{tagList}}</div>
+    </div>
+</div>

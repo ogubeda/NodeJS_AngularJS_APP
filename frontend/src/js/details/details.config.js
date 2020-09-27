@@ -3,7 +3,7 @@ function DetailsSongsConfig($stateProvider) {
 
     $stateProvider
         .state('app.details', {
-            url: '/songs/:slug',
+            url: '/details/:slug',
             controller: 'DetailsCtrl',
             controllerAs: '$ctrl',
             templateUrl: 'details/view/details.html',

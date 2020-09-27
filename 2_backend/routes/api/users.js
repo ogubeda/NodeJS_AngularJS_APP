@@ -61,15 +61,22 @@ router.post('/users/login', function(req, res, next){
 });
 
 router.post('/users', function(req, res, next){
-  var user = new User();
-
-  user.username = req.body.user.username;
-  user.email = req.body.user.email;
-  user.setPassword(req.body.user.password);
-
-  user.save().then(function(){
-    return res.json({user: user.toAuthJSON()});
-  }).catch(next);
+  User.findOne({ 'email' : req.body.user.email }, function(err, response) {
+    if (response == null) {
+      var user = new User();
+    
+      user.username = req.body.user.username;
+      user.email = req.body.user.email;
+      user.setPassword(req.body.user.password);
+    
+      user.save().then(function(){
+        return res.json({user: user.toAuthJSON()});
+      }).catch(next);
+    }else {
+      res.status(422).json(err);
+      console.log('fail');
+    }
+  })
 });
 
 router.post('/users/sociallogin', function(req, res, next){
@@ -81,13 +88,10 @@ router.post('/users/sociallogin', function(req, res, next){
   }
 
   User.findOne({ '_id' : sessionUser }, function(err, user) {
-    console.log(err);
-    console.log(user);
     if (err)
       return done(err);
     // if the user is found then log them in
     if (user) {
-        console.log(user);
         user.token = user.generateJWT();
         return res.json({user: user.toAuthJSON()});// user found, return that user
     } else {

@@ -1,5 +1,6 @@
 <home-slider></home-slider>
 <div id = "container-tagList">
+    <h2>Choose a musical genre</h2>
     <div ng-repeat = "tagList in $ctrl.tagList">
         <div style = "text-transform: uppercase;"  ui-sref = "app.songs({filter:tagList})">{{tagList}}</div>
     </div>

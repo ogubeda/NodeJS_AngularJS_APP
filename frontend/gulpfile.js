@@ -13,6 +13,7 @@ var merge         = require('merge-stream');
 // Where our files are located
 var jsFiles   = "src/js/**/*.js";
 var viewFiles = "src/js/**/*.html";
+var cssFiles = "src/css/**/*.css";
 
 var interceptErrors = function(error) {
   var args = Array.prototype.slice.call(arguments);
@@ -46,6 +47,18 @@ gulp.task('html', function() {
       .pipe(gulp.dest('./build/'));
 });
 
+gulp.task('css', function() {
+  return gulp.src("src/css/*.css")
+    .on('error', interceptErrors)
+    .pipe(gulp.dest('./build/css'))
+});
+
+gulp.task('img', function () {
+  return gulp.src("src/images/*.*")
+    .on('error', interceptErrors)
+    .pipe(gulp.dest('./build/images'))
+});
+
 gulp.task('views', function() {
   return gulp.src(viewFiles)
       .pipe(templateCache({
@@ -69,7 +82,7 @@ gulp.task('build', ['html', 'browserify'], function() {
   return merge(html,js);
 });
 
-gulp.task('default', ['html', 'browserify'], function() {
+gulp.task('default', ['html', 'css','browserify', 'img'], function() {
 
   browserSync.init(['./build/**/**.**'], {
     server: "./build",
@@ -82,5 +95,6 @@ gulp.task('default', ['html', 'browserify'], function() {
 
   gulp.watch("src/index.html", ['html']);
   gulp.watch(viewFiles, ['views']);
+  gulp.watch(cssFiles, ['css']);
   gulp.watch(jsFiles, ['browserify']);
 });

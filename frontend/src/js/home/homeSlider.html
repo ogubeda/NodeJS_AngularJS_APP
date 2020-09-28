@@ -3,7 +3,7 @@
         <div uib-slide ng-repeat = "slide in $ctrl.slides track by slide.id" index = "slide.id" style = "height: 400px;">
             <img ng-src = "{{slide.image}}" class = "img-fluid" style = "filter:blur(2px);">
             <div class = "carousel-caption" style = "padding-bottom: 100px;">
-                <h2>{{slide.text}}</h2>
+                <h2 class="home-tittle">{{slide.text}}</h2>
             </div>
         </div>
     </div>

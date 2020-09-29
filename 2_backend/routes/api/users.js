@@ -68,6 +68,7 @@ router.post('/users', function(req, res, next){
       user.username = req.body.user.username;
       user.email = req.body.user.email;
       user.setPassword(req.body.user.password);
+      user.idsocial = req.body.user.email;
     
       user.save().then(function(){
         return res.json({user: user.toAuthJSON()});

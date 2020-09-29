@@ -2,6 +2,8 @@ class SongsCtrl {
     constructor(songs, $state, $stateParams) {
         "ngInject";
 
+        console.log(songs);
+
         this.songs = [],
         this.filter = $stateParams.filter;
 

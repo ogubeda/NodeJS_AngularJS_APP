@@ -15,6 +15,7 @@ class AuthCtrl {
 
     this._User.attemptAuth(this.authType, this.formData).then(
       (res) => {
+        this._toastr.showToastr('success', 'Successfully Logged In');
         this._$state.go('app.home');
       },
       (err) => {

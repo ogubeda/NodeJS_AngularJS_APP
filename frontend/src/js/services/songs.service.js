@@ -12,7 +12,7 @@ export default class Songs {
         url: this._AppConstants.api + "/songs",       
         method: "GET"
       }).then(res => {
-        return res.data.song;
+        return res.data.songs;
       });
     }// end_getSongs
 

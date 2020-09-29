@@ -14,20 +14,6 @@ router.param('song', function (req, res, next, slug) {
 });
 
 router.get("/", auth.optional, function (req, res, next) {
-  // Promise.resolve(
-  //   req.payload ? User.findById(req.payload.id) : null
-  // ).then(
-  //   (user) => {
-  //     console.log(user);
-  //     Song.find()
-  //       .then(function (song) {
-  //         return res.json({ song: song.map(song => song.toJSONFor(user)) });
-  //       })
-  //       .catch(next);
-  //   }
-  // )
-
-
   var query = {};
   var limit = 20;
   var offset = 0;
@@ -71,6 +57,7 @@ router.get("/", auth.optional, function (req, res, next) {
       Song.count(query).exec(),
       req.payload ? User.findById(req.payload.id) : null,
     ]).then(function(results){
+
       var songs = results[0];
       var songsCount = results[1];
       var user = results[2];
@@ -104,12 +91,6 @@ router.get("/:slug", function (req, res, next) {
     .catch(next);
 });
 
-router.get('/:hotel/category', function (req, res, next) {
-  Hotels.find().distinct('category').then(function (category) {
-    return res.json({ category: category });
-  }).catch(next);
-});
-
 router.post("/", auth.required, function (req, res, next) {
   User.findById(req.payload.id).then(function (user) {
     if (!user) { return res.sendStatus(401); }
@@ -121,7 +102,7 @@ router.post("/", auth.required, function (req, res, next) {
     return song
       .save()
       .then(function () {
-        res.json({ song: song.toJSONFor() });
+        res.json({ song: song.toJSONFor(user) });
       })
       .catch(next);
   })
@@ -157,29 +138,32 @@ router.delete("/:slug", function (req, res, next) { //search by slug
     .catch(next);
 });*/
 
-router.post('/:hotels/favorite', auth.required, function (req, res, next) {
-  var hotelId = req.hotels._id;
+router.post('/:song/favorite', auth.required, function (req, res, next) {
+  var songId = req.song._id;
+
+  console.log(songId);
 
   User.findById(req.payload.id).then(function (user) {
     if (!user) { return res.sendStatus(401); }
 
-    return user.favorite(hotelId).then(function () {
-      return req.hotels.updateFavoriteCount().then(function (hotel) {
-        return res.json({ hotel: hotel.toJSONFor(user) });
+    return user.favorite(songId).then(function () {
+      return req.song.updateFavoriteCount().then(function (song) {
+        return res.json({ song: song.toJSONFor(user)});
+        // return res.json({ song: song });
       });
     });
   }).catch(next);
 });
 
-router.delete('/:hotels/favorite', auth.required, function (req, res, next) {
-  var hotelId = req.hotels._id;
+router.delete('/:song/favorite', auth.required, function (req, res, next) {
+  var songId = req.song._id;
 
   User.findById(req.payload.id).then(function (user) {
     if (!user) { return res.sendStatus(401); }
 
-    return user.unfavorite(hotelId).then(function () {
-      return req.hotels.updateFavoriteCount().then(function (hotel) {
-        return res.json({ hotel: hotel.toJSONFor(user) });
+    return user.unfavorite(songId).then(function () {
+      return req.song.updateFavoriteCount().then(function (song) {
+        return res.json({ song: song.toJSONFor(user)});
       });
     });
   }).catch(next);

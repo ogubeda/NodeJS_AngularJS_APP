@@ -1,7 +1,5 @@
-<div class = "container">
-    <div class = "row-container">
-        <input type = "button" ng-show = "$ctrl.filter" ng-disabled = "!$ctrl.filter" value = "Clear filters" ng-click = "$ctrl.clearFilters()">
-        <songs-list songs = "$ctrl.songs"></songs-list>
-    </div>
+<div class="container">
+    <input type="button" ng-show="$ctrl.filter" ng-disabled="!$ctrl.filter" value="Clear filters"
+        ng-click="$ctrl.clearFilters()">
+    <songs-list songs="$ctrl.songs"></songs-list>
 </div>
-

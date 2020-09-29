@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Tamma+2&display=swap');
 
 #container-tagList {
     padding: 25px 150px;
@@ -14,11 +15,29 @@
 }
 .row-container .row-item {
     flex: 1 1 33%;
-    padding: 25px 0;
-}
-.row-container .row-song {
-    flex: 1 1 33%;
     max-width: 33%;
+}
+.row-container .row-item div {
+    padding: 25px 0;
+    margin: 15px;
+    box-shadow: 0 2px 5px 0 rgba(78, 78, 78, 0.2), 0 2px 6px 0  rgba(78, 78, 78, 0.2);
+    cursor: pointer;
+    text-align: center;
+    font-family: "Baloo Tamma 2";
+    font-size: 28px;
+}
+.row-container .row-item div:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 8px 0 rgba(0, 0, 0, 0.19);
+}
+.row-song {
+    padding: 15px 25px;
+    box-shadow: 0 2px 5px 0 rgba(78, 78, 78, 0.2), 0 2px 6px 0  rgba(78, 78, 78, 0.2);
+    margin-bottom: 20px;
+    cursor: pointer;
+    width: 65%;
+}
+.row-song:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 8px 0 rgba(0, 0, 0, 0.19);
 }
 
 .navbar-brand {
@@ -27,4 +46,7 @@
 }
 .navbar {
     padding-top: 25px;
+}
+.nav li a:focus, .nav li a:hover {
+    background-color: #FFF!important;
 }

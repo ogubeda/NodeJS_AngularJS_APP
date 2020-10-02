@@ -3,6 +3,8 @@ var mongoose = require("mongoose");
 var Song = mongoose.model("Song");
 var auth = require('../auth');
 var User = mongoose.model('User');
+var Comment = mongoose.model('Comment');
+
 
 router.param('song', function (req, res, next, slug) {
   Song.findOne({ slug: slug })
@@ -11,6 +13,16 @@ router.param('song', function (req, res, next, slug) {
       req.song = song;
       return next();
     }).catch(next);
+});
+
+router.param('comment', function(req, res, next, id) {
+  Comment.findById(id).then(function(comment){
+    if(!comment) { return res.sendStatus(404); }
+
+    req.comment = comment;
+
+    return next();
+  }).catch(next);
 });
 
 router.get("/", auth.optional, function (req, res, next) {
@@ -141,8 +153,6 @@ router.delete("/:slug", function (req, res, next) { //search by slug
 router.post('/:song/favorite', auth.required, function (req, res, next) {
   var songId = req.song._id;
 
-  console.log(songId);
-
   User.findById(req.payload.id).then(function (user) {
     if (!user) { return res.sendStatus(401); }
 
@@ -167,6 +177,57 @@ router.delete('/:song/favorite', auth.required, function (req, res, next) {
       });
     });
   }).catch(next);
+});
+
+router.get('/:song/comments', auth.optional, function(req, res, next){
+  Promise.resolve(req.payload ? User.findById(req.payload.id) : null).then(function(user){
+    return req.song.populate({
+      path: 'comments',
+      populate: {
+        path: 'author'
+      },
+      options: {
+        sort: {
+          createdAt: 'desc'
+        }
+      }
+    }).execPopulate().then(function(song) {
+      return res.json({comments: req.song.comments.map(function(comment){
+        return comment.toJSONFor(user);
+      })});
+    });
+  }).catch(next);
+});
+
+router.post('/:song/comments', auth.required, function(req, res, next) {
+  User.findById(req.payload.id).then(function(user){
+    if(!user){ return res.sendStatus(401); }
+
+    var comment = new Comment(req.body.comment);
+    comment.song = req.song;
+    comment.author = user;
+
+    return comment.save().then(function(){
+      req.song.comments = req.song.comments.concat([comment]);
+
+      return req.song.save().then(function(song) {
+        res.json({comment: comment.toJSONFor(user)});
+      });
+    });
+  }).catch(next);
+});
+
+router.delete('/:song/comments/:comment', auth.required, function(req, res, next) {
+  if(req.comment.author.toString() === req.payload.id.toString()){
+    req.song.comments.remove(req.comment._id);
+    req.song.save()
+      .then(Comment.find({_id: req.comment._id}).remove().exec())
+      .then(function(){
+        res.sendStatus(204);
+      });
+  } else {
+    res.sendStatus(403);
+  }
 });
 
 module.exports = router;

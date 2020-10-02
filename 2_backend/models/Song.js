@@ -11,6 +11,7 @@ var SongSchema = new mongoose.Schema({
   favoritesCount: {type: Number, default: 0},
   releaseDate: String,
   tagList: [{ type: String }],
+  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
   uploaded: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 }, {timestamps: true});
 

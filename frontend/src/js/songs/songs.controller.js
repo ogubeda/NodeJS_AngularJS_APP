@@ -4,6 +4,7 @@ class SongsCtrl {
 
         this.songs = [],
         this.filter = $stateParams.filter;
+        this._$state = $state;
 
         if (this.filter) {
             for (let song in songs) {
@@ -18,6 +19,8 @@ class SongsCtrl {
         this.clearFilters = function() {
             this.filter = false;
             this.songs = songs;
+            this._$state.transitionTo('app.songs')
+
         }// end_clearFilters
     }// end_constructor
 }// end_SongsCtrl

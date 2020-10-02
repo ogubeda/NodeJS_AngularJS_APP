@@ -54,7 +54,7 @@ gulp.task('css', function() {
 });
 
 gulp.task('img', function () {
-  return gulp.src("src/images/*.*")
+  return gulp.src("src/images/*/*.*")
     .on('error', interceptErrors)
     .pipe(gulp.dest('./build/images'))
 });

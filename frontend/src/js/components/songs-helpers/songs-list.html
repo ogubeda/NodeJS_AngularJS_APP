@@ -1,7 +1,12 @@
 <div class = "article-meta row-song" ng-repeat = "song in $ctrl.songs">
-    <div ui-sref = "app.details({slug:song.slug})">
-        <div>{{song.title}}</div>
-        <div>{{song.group}}</div>
-        <div>{{song.releaseDate}}</div>
+    <div class = "container-song-list" ui-sref = "app.details({slug:song.slug})">
+        <div class = "ite" style = "padding-right: 25px;">
+            <img style = "width: 65px!important; height: 65px!important;" ng-src = "{{song.image}}">
+        </div>
+        <div class = "ite">
+            <div>{{song.title}}</div>
+            <div>{{song.group}}</div>
+            <div>{{song.releaseDate}}</div>
+        </div>
     </div>
 </div>

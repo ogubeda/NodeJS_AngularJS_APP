@@ -50,3 +50,11 @@
 .nav li a:focus, .nav li a:hover {
     background-color: #FFF!important;
 }
+.container-song-list {
+    display: flex;
+    align-items: center;
+}
+
+.container-song-list .item {
+    flex: 1 1 50%;
+}

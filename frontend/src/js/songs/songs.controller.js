@@ -6,12 +6,16 @@ class SongsCtrl {
         this.filter = $stateParams.filter;
         this._$state = $state;
 
+        console.log(songs);
+
+        songs.sort((a,b) => (a.releaseDate < b.releaseDate) ? 1 : ((b.releaseDate < a.releaseDate) ? -1 : 0));
+
         if (this.filter) {
             for (let song in songs) {
                 if (songs[song].tagList.includes(this.filter)) {
                     this.songs.push(songs[song]);
                 }// end_if
-            }
+            }// end_for
         }else {
             this.songs = songs;
         }// end_else

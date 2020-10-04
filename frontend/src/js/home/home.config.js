@@ -11,6 +11,9 @@ function HomeConfig($stateProvider) {
     resolve: {
       tagList: function(Songs) {
         return Songs.getTagList().then((tagList) => tagList);
+      },
+      songs: function(Songs) {
+        return Songs.getSongs().then(songs => songs);
       }
     }
   });

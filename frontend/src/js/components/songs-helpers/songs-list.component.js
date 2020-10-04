@@ -3,6 +3,10 @@ class SongsListCtrl {
         "ngInject";
         
         this._$scope = $scope;
+
+        this.openDetails = function(slug) {
+            $state.go("app.details", {slug: slug});
+        }
     }// end_constructor
 }// end_EventsListCtrl
 

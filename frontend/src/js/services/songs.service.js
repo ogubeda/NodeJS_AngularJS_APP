@@ -34,7 +34,7 @@ export default class Songs {
 
     addFav(slug) {
       return this._$http({
-        url: this.AppConstants.api + "/songs/" + slug + "/favorite",
+        url: this._AppConstants.api + "/songs/" + slug + "/favorite",
         method: "POST"
       });
     }// end_addFav

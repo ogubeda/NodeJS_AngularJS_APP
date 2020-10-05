@@ -58,3 +58,8 @@
 .container-song-list .item {
     flex: 1 1 50%;
 }
+
+.nav-link {
+    font-family: "Baloo Tamma 2"!important;
+    font-size: 18px;
+}

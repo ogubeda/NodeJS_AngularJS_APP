@@ -2,6 +2,6 @@
   ng-class="{ 'disabled' : $ctrl.isSubmitting,
               'btn-outline-primary': !$ctrl.song.favorited,
               'btn-primary': $ctrl.song.favorited }"
-  ng-click="$ctrl.submit()">
+  ng-click="$ctrl.submit(); $event.stopPropagation()">
   <i class="ion-heart"></i> <ng-transclude></ng-transclude>
 </button>

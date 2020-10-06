@@ -63,3 +63,15 @@
     font-family: "Baloo Tamma 2"!important;
     font-size: 18px;
 }
+
+.btn-outline-primary {
+    color: rgb(95, 95, 95)!important;
+}
+.btn-outline-primary:hover  {
+    color: #ffa200;
+    background-color: #ffa200;
+}
+.btn-outline-primary:active {
+    color: #ffa200;
+    background-color: #ffa200;
+}

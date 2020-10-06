@@ -1,4 +1,9 @@
 <div>
     <h1>{{$ctrl.song.title}}</h1>
     <h2>{{$ctrl.song.group}}</h2>
+    <!-- <a ui-sref = "app.profile.main({username: $ctrl.song.uploaded.username})">Test</a> -->
+
+    <favorite-btn song = "$ctrl.song" class="pull-xs-right">{{$ctrl.song.favoritesCount}}</favorite-btn>
+    <follow-btn user="$ctrl.song.uploaded" ng-hide="$ctrl.isUser"></follow-btn>
+
 </div>

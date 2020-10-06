@@ -92,15 +92,16 @@ router.get("/taglist", function (req, res, next) {
     }).catch(next);
 });
 
-router.get("/:slug", function (req, res, next) {
-  Song.findOne({ slug: req.params.slug })
-    .then(function (songs) {
-      if (!songs) {
-        return res.sendStatus(401);
-      }
-      return res.json({ song: songs });
-    })
-    .catch(next);
+router.get("/:song", auth.optional,function (req, res, next) {
+
+  Promise.all([
+    req.payload ? User.findById(req.payload.id) : null,
+    req.song.populate('uploaded').execPopulate()
+  ]).then(function(results) {
+    let user = results[0];
+
+    return res.json({song: req.song.toJSONFor(user)});
+  }).catch(next);
 });
 
 router.post("/", auth.required, function (req, res, next) {

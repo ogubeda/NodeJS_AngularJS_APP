@@ -6,8 +6,6 @@ class SongsCtrl {
         this.filter = $stateParams.filter;
         this._$state = $state;
 
-        console.log(songs);
-
         songs.sort((a,b) => (a.releaseDate < b.releaseDate) ? 1 : ((b.releaseDate < a.releaseDate) ? -1 : 0));
 
         if (this.filter) {

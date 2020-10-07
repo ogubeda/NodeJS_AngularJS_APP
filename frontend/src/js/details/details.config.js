@@ -11,6 +11,9 @@ function DetailsSongsConfig($stateProvider) {
             resolve: {
                 song: function(Songs, $stateParams) {
                     return Songs.getSong($stateParams.slug).then(song => song);
+                },
+                comments: function(Comments, $stateParams) {
+                    return Comments.getAll($stateParams.slug).then(comments => comments);
                 }
             }
         })

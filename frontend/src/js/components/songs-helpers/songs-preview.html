@@ -1,0 +1,15 @@
+<div class = "article-meta row-song">
+    <div class = "container-song-list" ng-click = "$ctrl.opendt()">
+        <div class = "ite" style = "padding-right: 25px;">
+            <img style = "width: 65px!important; height: 65px!important;" ng-src = "{{$ctrl.song.image}}">
+        </div>
+        <div class = "ite">
+            <div>{{$ctrl.song.title}}</div>
+            <div>{{$ctrl.song.group}}</div>
+            <div>{{$ctrl.song.releaseDate}}</div>
+        </div>
+        <buttons>
+            <favorite-btn song = "$ctrl.song" class="pull-xs-right">{{$ctrl.song.favoritesCount}}</favorite-btn>
+        </buttons>
+    </div>
+</div>

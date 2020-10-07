@@ -1,15 +1,1 @@
-<div class = "article-meta row-song" ng-repeat = "song in $ctrl.songs">
-    <div class = "container-song-list" ng-click = "$ctrl.openDetails(song.slug)">
-        <div class = "ite" style = "padding-right: 25px;">
-            <img style = "width: 65px!important; height: 65px!important;" ng-src = "{{song.image}}">
-        </div>
-        <div class = "ite">
-            <div>{{song.title}}</div>
-            <div>{{song.group}}</div>
-            <div>{{song.releaseDate}}</div>
-        </div>
-        <buttons>
-            <favorite-btn song = "song" class="pull-xs-right">{{song.favoritesCount}}</favorite-btn>
-        </buttons>
-    </div>
-</div>
+<songs-preview opendt = "$ctrl.openDetails(song.slug)" song = "song" ng-repeat = "song in $ctrl.songs"></songs-preview>

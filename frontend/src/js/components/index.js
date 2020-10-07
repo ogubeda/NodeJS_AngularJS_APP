@@ -30,4 +30,10 @@ componentsModule.component('listPagination', ListPagination);
 import SongsList from './songs-helpers/songs-list.component';
 componentsModule.component('songsList', SongsList);
 
+import SongsPreview from './songs-helpers/songs-preview.component';
+componentsModule.component('songsPreview', SongsPreview);
+
+import Comment from './song-helpers/comment.component';
+componentsModule.component('comment', Comment);
+
 export default componentsModule;

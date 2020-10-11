@@ -36,4 +36,7 @@ componentsModule.component('songsPreview', SongsPreview);
 import Comment from './song-helpers/comment.component';
 componentsModule.component('comment', Comment);
 
+import SongActions from './song-helpers/song-actions.component';
+componentsModule.component('songActions', SongActions);
+
 export default componentsModule;

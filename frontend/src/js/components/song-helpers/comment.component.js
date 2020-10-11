@@ -1,13 +1,15 @@
 class CommentCtrl {
     constructor(User) {
       'ngInject';
+
   
-      if (User.current) {
-        this.canModify = (User.current.username === this.data.author.username);
-      } else {
-        this.canModify = false;
+      this.$onInit = () => {
+        if (User.current) {
+          this.canModify = (User.current.username === this.data.author.username);
+        } else {
+          this.canModify = false;
+        }
       }
-  
     }
   }
   
@@ -17,7 +19,7 @@ class CommentCtrl {
       deleteCb: '&'
     },
     controller: CommentCtrl,
-    templateUrl: 'song-helpers/comment.html'
+    templateUrl: 'components/song-helpers/comment.html'
   };
   
   export default Comment;

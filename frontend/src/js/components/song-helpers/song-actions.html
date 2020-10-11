@@ -1,0 +1,19 @@
+<span ng-show="$ctrl.canModify">
+    <a class="btn btn-sm btn-outline-secondary"
+      ui-sref="app.editor({ slug: $ctrl.song.slug })">
+      <i class="ion-edit"></i> Edit Song
+    </a>
+
+    <button class="btn btn-sm btn-outline-danger"
+      ng-class="{disabled: $ctrl.isDeleting}"
+      ng-click="$ctrl.deleteArticle()">
+      <i class="ion-trash-a"></i> Delete Song
+    </button>
+  </span>
+
+  <span ng-hide="$ctrl.canModify">
+    <follow-btn user="$ctrl.song.uploaded"></follow-btn>
+    <favorite-btn song="$ctrl.song">
+      {{ $ctrl.song.favorited ? 'Unfavorite' : 'Favorite' }} Song <span class="counter">({{$ctrl.song.favoritesCount}})</span>
+    </favorite-btn>
+  </span>

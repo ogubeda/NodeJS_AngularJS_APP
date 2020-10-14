@@ -43,14 +43,14 @@ router.get("/", auth.optional, function (req, res, next) {
   }
 
   Promise.all([
-    req.query.author ? User.findOne({username: req.query.author}) : null,
+    req.query.uploaded ? User.findOne({username: req.query.uploaded}) : null,
     req.query.favorited ? User.findOne({username: req.query.favorited}) : null
   ]).then(function(results){
-    var author = results[0];
+    var uploaded = results[0];
     var favoriter = results[1];
 
-    if(author){
-      query.author = author._id;
+    if(uploaded){
+      query.uploaded = uploaded._id;
     }
 
     if(favoriter){
@@ -122,18 +122,21 @@ router.post("/", auth.required, function (req, res, next) {
 });
 
 
-router.delete("/:slug", function (req, res, next) { //search by slug
-  Hotels.findOne({ slug: req.params.slug }) //delete
-    .then(function (hotels) {
-      if (!hotels) { //id it doesn't exist, show error 401
-        return res.sendStatus(401);
-      } else {
-        return hotels.remove().then(function () { //if it exists, remove
-          return res.sendStatus(204);
-        });
-      }
-    })
-    .catch(next);
+router.delete("/:song", auth.required, function (req, res, next) { //search by slug
+  User.findById(req.payload.id).then(function(user){
+    if (!user) { return res.sendStatus(401); }
+
+    console.log(req.song.uploaded);
+    console.log(req.payload.username.toString());
+
+    if(req.song.uploaded._id.toString() === req.payload.id.toString()){
+      return req.song.remove().then(function(){
+        return res.sendStatus(204);
+      });
+    } else {
+      return res.sendStatus(403);
+    }
+  }).catch(next);
 });
 
 //update hotel

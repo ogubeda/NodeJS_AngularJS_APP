@@ -51,7 +51,7 @@ SongSchema.methods.toJSONFor = function(user){
     releaseDate: this.releaseDate,
     favorited: user ? user.isFavorite(this._id) : false,
     tagList: this.tagList,
-    uploaded: user ? user.toProfileJSONFor(user) : this.uploaded.toProfileJSONFor(user)
+    uploaded: (this.uploaded instanceof User) ? this.uploaded.toProfileJSONFor(user) : user.toProfileJSONFor(user)
   };
 };
 

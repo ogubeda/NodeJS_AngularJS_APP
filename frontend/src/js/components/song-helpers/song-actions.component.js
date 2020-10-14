@@ -7,8 +7,6 @@ class SongActionsCtrl {
   
       this.$onInit = () => {
           if (User.current) {
-              console.log(User.current.username);
-              console.log(this.song.uploaded);
             this.canModify = (User.current.username === this.song.uploaded.username);
           } else {
             this.canModify = false;
@@ -17,9 +15,9 @@ class SongActionsCtrl {
   
     }
   
-    deleteArticle() {
+    deleteSong() {
       this.isDeleting = true;
-      this._Songs.destroy(this.song.slug).then(
+      this._Songs.delete(this.song.slug).then(
         (success) => this._$state.go('app.home'),
         (err) => this._$state.go('app.home')
       )

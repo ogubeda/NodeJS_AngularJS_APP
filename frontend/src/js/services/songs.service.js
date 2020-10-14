@@ -45,4 +45,11 @@ export default class Songs {
         method: "DELETE"
       });
     }// end_delFav
+
+    delete(slug) {
+      return this._$http({
+        url: this._AppConstants.api + '/songs/' + slug,
+        method: 'DELETE'
+      })
+    }
 }

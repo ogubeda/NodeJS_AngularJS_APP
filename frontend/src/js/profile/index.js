@@ -11,8 +11,8 @@ profileModule.config(ProfileConfig);
 import ProfileCtrl from './profile.controller';
 profileModule.controller('ProfileCtrl', ProfileCtrl);
 
-import ProfileArticlesCtrl from './profile-articles.controller';
-profileModule.controller('ProfileArticlesCtrl', ProfileArticlesCtrl);
+import ProfileSongsCtrl from './profile-songs.controller';
+profileModule.controller('ProfileSongsCtrl', ProfileSongsCtrl);
 
 
 export default profileModule;

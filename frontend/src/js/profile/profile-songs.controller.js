@@ -1,4 +1,4 @@
-class ProfileArticlesCtrl {
+class ProfileSongsCtrl {
   constructor(profile, $state, $rootScope) {
     'ngInject';
 
@@ -6,13 +6,14 @@ class ProfileArticlesCtrl {
     this.profile = profile;
 
     this.profileState = $state.current.name.replace('app.profile.', '');
+    this.order = "title";
 
     // Both favorites and author articles require the 'all' type
     this.listConfig = { type: 'all' };
 
     // `main` state's filter should be by author
     if (this.profileState === 'main') {
-      this.listConfig.filters = {author: this.profile.username};
+      this.listConfig.filters = {uploaded: this.profile.username};
       // Set page title
       $rootScope.setPageTitle('@' + this.profile.username);
 
@@ -25,4 +26,4 @@ class ProfileArticlesCtrl {
   }
 }
 
-export default ProfileArticlesCtrl;
+export default ProfileSongsCtrl;

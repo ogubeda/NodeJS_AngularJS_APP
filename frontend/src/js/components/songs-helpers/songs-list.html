@@ -1,3 +1,7 @@
 <songs-preview opendt = "$ctrl.openDetails(song.slug)" 
                 song = "song" 
-                ng-repeat = "song in $ctrl.songs"></songs-preview>
+                ng-repeat = "song in $ctrl.list"></songs-preview>
+
+<list-pagination total-pages = "$ctrl.listConfig.totalPages"
+    current-page = "$ctrl.listConfig.currentPage"
+    ng-hide = "$ctrl.listConfig.totalPages <= 1"></list-pagination>

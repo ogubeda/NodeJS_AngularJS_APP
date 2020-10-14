@@ -1,22 +1,20 @@
 class SongsCtrl {
-    constructor(songs, $state, $stateParams) {
+    constructor($state, $stateParams) {
         "ngInject";
 
-        this.songs = [],
         this.filter = $stateParams.filter;
         this._$state = $state;
 
-        songs.sort((a,b) => (a.releaseDate < b.releaseDate) ? 1 : ((b.releaseDate < a.releaseDate) ? -1 : 0));
 
-        if (this.filter) {
-            for (let song in songs) {
-                if (songs[song].tagList.includes(this.filter)) {
-                    this.songs.push(songs[song]);
-                }// end_if
-            }// end_for
-        }else {
-            this.songs = songs;
-        }// end_else
+        // if (this.filter) {
+        //     for (let song in songs) {
+        //         if (songs[song].tagList.includes(this.filter)) {
+        //             this.songs.push(songs[song]);
+        //         }// end_if
+        //     }// end_for
+        // }else {
+        //     this.songs = songs;
+        // }// end_else
 
         this.clearFilters = function() {
             this.filter = false;

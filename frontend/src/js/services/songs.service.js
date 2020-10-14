@@ -52,4 +52,13 @@ export default class Songs {
         method: 'DELETE'
       })
     }
+
+    query(config) {
+      let request = {
+        url: this._AppConstants.api + '/songs' + ((config.type === 'feed') ? '/feed' : ''),
+        method: 'GET',
+        params: config.filters ? config.filters : null
+      };
+      return this._$http(request).then((res) => res.data);
+    }
 }

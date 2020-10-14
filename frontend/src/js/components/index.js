@@ -24,7 +24,7 @@ componentsModule.component('articlePreview', ArticlePreview);
 import ArticleList from './article-helpers/article-list.component';
 componentsModule.component('articleList', ArticleList);
 
-import ListPagination from './article-helpers/list-pagination.component';
+import ListPagination from './songs-helpers/list-pagination.component';
 componentsModule.component('listPagination', ListPagination);
 
 import SongsList from './songs-helpers/songs-list.component';

@@ -85,6 +85,42 @@ router.get("/", auth.optional, function (req, res, next) {
 
 });
 
+router.get('/feed', auth.required, function(req, res, next) {
+  var limit = 20;
+  var offset = 0;
+
+  if(typeof req.query.limit !== 'undefined'){
+    limit = req.query.limit;
+  }
+
+  if(typeof req.query.offset !== 'undefined'){
+    offset = req.query.offset;
+  }
+
+  User.findById(req.payload.id).then(function(user){
+    if (!user) { return res.sendStatus(401); }
+
+    Promise.all([
+      Song.find({ uploaded: {$in: user.following}})
+        .limit(Number(limit))
+        .skip(Number(offset))
+        .populate('uploaded')
+        .exec(),
+      Song.count({ uploaded: {$in: user.following}})
+    ]).then(function(results){
+      var songs = results[0];
+      var songsCount = results[1];
+
+      return res.json({
+        songs: songs.map(function(song){
+          return song.toJSONFor(user);
+        }),
+        songsCount: songsCount
+      });
+    }).catch(next);
+  });
+});
+
 router.get("/taglist", function (req, res, next) {
   Song.distinct('tagList')
     .then(function (tagList) {

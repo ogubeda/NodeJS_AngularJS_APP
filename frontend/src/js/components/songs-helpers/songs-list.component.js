@@ -18,7 +18,7 @@ class SongsListCtrl {
             this.openDetails = function (slug) {
                 $state.go("app.details", { slug: slug });
             }// end_openDetails
-        }
+        }// end_onInit
     }// end_constructor
 
     setListTo(newList) {
@@ -54,8 +54,7 @@ class SongsListCtrl {
             this.list = res.songs.sort((a,b) => (a[this.order] < b[this.order]) ? 1 : ((b[this.order] < a[this.order]) ? -1 : 0));
             this.listConfig.totalPages = Math.ceil(res.songsCount / this.limit);
         });
-        
-    }
+    }// end_runQuery
 }// end_EventsListCtrl
 
 let SongsList = {

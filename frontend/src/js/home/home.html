@@ -6,8 +6,8 @@
 <div id = "container-tagList">
     <h2 class = "home-tittle">Choose a musical genre</h2>
     <div class = "row-container">
-        <div class = "row-item" ng-repeat = "tagList in $ctrl.tagList">
-            <div style = "text-transform: uppercase;"  ui-sref = "app.songs({filter:tagList})">{{tagList}}</div>
+        <div class = "row-item" ng-repeat = "tagList in $ctrl.tagList" ng-click = "$ctrl.changeList({type: 'all', filters: {tag: tagList}})">
+            <div style = "text-transform: uppercase;">{{tagList}}</div>
         </div>
     </div>
 </div>

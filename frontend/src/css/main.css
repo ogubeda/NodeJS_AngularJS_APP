@@ -68,10 +68,24 @@
     color: rgb(95, 95, 95)!important;
 }
 .btn-outline-primary:hover  {
-    color: #ffa200;
     background-color: #ffa200;
+    border-color: #ffa200;
 }
 .btn-outline-primary:active {
-    color: #ffa200;
     background-color: #ffa200;
+    border-color: #ffa200;
+}
+.btn-outline-primary:focus {
+    background-color: #ffa200;
+    border-color: #ffa200;
+}
+
+.page-item.active .page-link, .page-item.active .page-link:focus, .page-item.active .page-link:hover {
+    background-color: #ffa200!important;
+    border-color: #ffa200!important;
+}
+
+.nav-pills.outline-active .nav-link.active {
+    color: #ffa200!important;
+    border-color: #ffa200!important;
 }

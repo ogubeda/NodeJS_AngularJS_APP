@@ -18,7 +18,7 @@ class SongsListCtrl {
             this.openDetails = function (slug) {
                 $state.go("app.details", { slug: slug });
             }// end_openDetails
-        }// end_onInit
+        }//
     }// end_constructor
 
     setListTo(newList) {

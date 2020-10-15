@@ -4,6 +4,7 @@ class SongsCtrl {
 
         this.filter = $stateParams.filter;
         this._$state = $state;
+        this.order = "releaseDate";
 
 
         // if (this.filter) {

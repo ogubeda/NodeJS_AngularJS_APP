@@ -8,7 +8,7 @@ class HomeCtrl {
     this.listConfig = {
       type: User.current ? 'feed': 'all'
     }
-    this.order = "favoritesCount";
+    this.order = (this.listConfig.type === 'all') ? "favoritesCount": 'createdAt';
   }// end_constructor
 
   changeList(newList) {

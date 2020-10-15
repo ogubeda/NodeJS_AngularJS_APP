@@ -1,6 +1,7 @@
 <home-slider></home-slider>
 <div id = "container-tagList">
-    <h2 class = "home-tittle">Most liked songs</h2>
+    <h2 class = "home-tittle" ng-show = "$ctrl.listConfig.type === 'all'">Most liked songs</h2>
+    <h2 class = "home-tittle" ng-show = "$ctrl.listConfig.type === 'feed'">Your Feed</h2>
     <songs-list limit = "5" list-config = "$ctrl.listConfig" order = "$ctrl.order"></songs-list>
 </div>
 <div id = "container-tagList">

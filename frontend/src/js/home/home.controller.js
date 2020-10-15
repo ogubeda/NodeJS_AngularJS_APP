@@ -13,6 +13,7 @@ class HomeCtrl {
 
   changeList(newList) {
     this._$scope.$broadcast('setListTo', newList);
+    this.order = 'favoritesCount';
   }// end_changeList
 
 }

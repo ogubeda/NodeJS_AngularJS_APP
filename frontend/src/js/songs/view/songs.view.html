@@ -1,5 +1,7 @@
 <div class="container">
     <input type="button" ng-show="$ctrl.filter" ng-disabled="!$ctrl.filter" value="Clear filters"
         ng-click="$ctrl.clearFilters()">
-    <songs-list limit = "5" list-config = "$ctrl.listConfig" order = "'releaseDate'"></songs-list>
+    <div style="width: 65%;">
+        <songs-list limit = "5" list-config = "$ctrl.listConfig" order = "'releaseDate'"></songs-list>
+    </div>
 </div>

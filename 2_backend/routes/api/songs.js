@@ -171,7 +171,7 @@ router.delete("/:song", auth.required, function (req, res, next) { //search by s
           return res.sendStatus(204);
       });
     }else return res.sendStatus(403);
-  });
+  }).catch(next);
 });
 
 //update hotel

@@ -159,20 +159,19 @@ router.post("/", auth.required, function (req, res, next) {
 
 
 router.delete("/:song", auth.required, function (req, res, next) { //search by slug
-  User.findById(req.payload.id).then(function(user){
-    if (!user) { return res.sendStatus(401); }
+  Promise.all([
+    User.findById(req.payload.id),
+    Song.findOne({slug: req.params.song}).populate('uploaded')
+  ]).then(function(results) {
+    let user = results[0];
+    let userUpload = results[1].toJSONFor().uploaded;
 
-    console.log(req.song.uploaded);
-    console.log(req.payload.username.toString());
-
-    if(req.song.uploaded._id.toString() === req.payload.id.toString()){
-      return req.song.remove().then(function(){
-        return res.sendStatus(204);
+    if (user.username === userUpload.username) {
+        return req.song.remove().then(function(){
+          return res.sendStatus(204);
       });
-    } else {
-      return res.sendStatus(403);
-    }
-  }).catch(next);
+    }else return res.sendStatus(403);
+  });
 });
 
 //update hotel

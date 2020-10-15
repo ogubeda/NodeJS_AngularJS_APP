@@ -4,7 +4,6 @@ class CommentCtrl {
 
   
       this.$onInit = () => {
-        console.log(this.data);
         if (User.current) {
           this.canModify = (User.current.username === this.data.author.username);
         } else {

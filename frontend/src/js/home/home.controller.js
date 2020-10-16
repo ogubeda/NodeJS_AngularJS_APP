@@ -6,9 +6,11 @@ class HomeCtrl {
     this.tagList = tagList;
     this._$scope = $scope;
     this.listConfig = {
-      type: User.current ? 'feed': 'all'
+      type: User.current ? 'feed': 'all',
+      filters: {
+        order: !User.current ? ["favoritesCount", 'desc']: null,
+      }
     }
-    this.order = (this.listConfig.type === 'all') ? "favoritesCount": 'createdAt';
   }// end_constructor
 
   changeList(newList) {

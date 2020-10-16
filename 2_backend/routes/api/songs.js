@@ -30,6 +30,9 @@ router.get("/", auth.optional, function (req, res, next) {
   var limit = 20;
   var offset = 0;
 
+  console.log(req.query.order);
+  let order = req.query.order ? {[req.query.order[0]]: req.query.order[1]} : {createdAt: 'desc'};
+
   if(typeof req.query.limit !== 'undefined'){
     limit = req.query.limit;
   }
@@ -41,6 +44,7 @@ router.get("/", auth.optional, function (req, res, next) {
   if( typeof req.query.tag !== 'undefined' ){
     query.tagList = {"$in" : [req.query.tag]};
   }
+  
 
   Promise.all([
     req.query.uploaded ? User.findOne({username: req.query.uploaded}) : null,
@@ -63,7 +67,7 @@ router.get("/", auth.optional, function (req, res, next) {
       Song.find(query)
         .limit(Number(limit))
         .skip(Number(offset))
-        .sort({createdAt: 'desc'})
+        .sort(order)
         .populate('uploaded')
         .exec(),
       Song.count(query).exec(),

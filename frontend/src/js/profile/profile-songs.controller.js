@@ -6,7 +6,6 @@ class ProfileSongsCtrl {
     this.profile = profile;
 
     this.profileState = $state.current.name.replace('app.profile.', '');
-    this.order = "title";
 
     // Both favorites and author articles require the 'all' type
     this.listConfig = { type: 'all' };

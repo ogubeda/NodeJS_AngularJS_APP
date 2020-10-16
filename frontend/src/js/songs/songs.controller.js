@@ -5,6 +5,11 @@ class SongsCtrl {
         this.filter = $stateParams.filter;
         this._$state = $state;
         this.order = "releaseDate";
+        this.listConfig = {
+            filters: {
+                order: ['releaseDate', 'desc'],
+              }
+        }
 
 
         // if (this.filter) {

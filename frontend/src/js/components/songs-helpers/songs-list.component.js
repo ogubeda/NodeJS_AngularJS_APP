@@ -51,7 +51,7 @@ class SongsListCtrl {
 
         this._Songs.query(queryConfig).then((res) => {
             this.loading = false;
-            this.list = res.songs.sort((a,b) => (a[this.order] < b[this.order]) ? 1 : ((b[this.order] < a[this.order]) ? -1 : 0));
+            this.list = res.songs;
             this.listConfig.totalPages = Math.ceil(res.songsCount / this.limit);
         });
     }// end_runQuery
@@ -61,7 +61,6 @@ let SongsList = {
     bindings: {
         limit: "=",
         listConfig: "=",
-        order: "="
     },
     controller: SongsListCtrl,
     templateUrl: 'components/songs-helpers/songs-list.html'

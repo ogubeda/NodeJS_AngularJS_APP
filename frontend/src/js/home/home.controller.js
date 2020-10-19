@@ -11,7 +11,8 @@ class HomeCtrl {
         order: !User.current ? ["favoritesCount", 'desc']: null,
       }
     }
-  }// end_constructor
+    this.currentList = Object.assign({}, this.listConfig)
+  }// end_constructor 
 
   changeList(newList) {
     this._$scope.$broadcast('setListTo', newList);

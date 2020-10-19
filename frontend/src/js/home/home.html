@@ -5,7 +5,7 @@
         <h2 class = "home-tittle" ng-show = "$ctrl.listConfig.type === 'feed'">Your Feed</h2>
         <div style = "display: flex; align-items: center;" ng-show = "$ctrl.listConfig.filters.tag">
             <h2 class = "home-tittle">{{$ctrl.listConfig.filters.tag}}</h2>
-            <div class = "btn-playit btn-playit--home" ng-click = "$ctrl.changeList({type: 'all', filters: {order: ['favoritesCount', 'desc']}})">X</div>
+            <div class = "btn-playit btn-playit--home" ng-click = "$ctrl.changeList($ctrl.currentList)">X</div>
         </div>
         <songs-list limit = "5" list-config = "$ctrl.listConfig"></songs-list>
     </div>

@@ -30,7 +30,6 @@ router.get("/", auth.optional, function (req, res, next) {
   var limit = 20;
   var offset = 0;
 
-  console.log(req.query.order);
   let order = req.query.order ? {[req.query.order[0]]: req.query.order[1]} : {createdAt: 'desc'};
 
   if(typeof req.query.limit !== 'undefined'){

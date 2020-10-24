@@ -5,6 +5,9 @@ var auth = require('../auth');
 var User = mongoose.model('User');
 var Comment = mongoose.model('Comment');
 
+let deleteSong = require('../../utils/songs.utils.js');
+
+
 
 router.param('song', function (req, res, next, slug) {
   Song.findOne({ slug: slug })
@@ -145,6 +148,8 @@ router.get("/:song", auth.optional,function (req, res, next) {
 
 router.post("/", auth.required, function (req, res, next) {
   User.findById(req.payload.id).then(function (user) {
+    console.log(user);
+
     if (!user) { return res.sendStatus(401); }
 
     var song = new Song(req.body.song);
@@ -170,9 +175,12 @@ router.delete("/:song", auth.required, function (req, res, next) { //search by s
     let userUpload = results[1].toJSONFor().uploaded;
 
     if (user.username === userUpload.username) {
-        return req.song.remove().then(function(){
-          return res.sendStatus(204);
-      });
+      
+      deleteSong(req.song);
+
+      //   return req.song.remove().then(function(){
+      //     return res.sendStatus(204);
+      // });
     }else return res.sendStatus(403);
   }).catch(next);
 });

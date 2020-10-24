@@ -3,6 +3,7 @@ var router = require('express').Router();
 var passport = require('passport');
 var User = mongoose.model('User');
 var auth = require('../auth');
+let utils = require('../../utils/users.utils');
 
 router.get('/user', auth.required, function(req, res, next){
   User.findById(req.payload.id).then(function(user){
@@ -60,29 +61,23 @@ router.post('/users/login', function(req, res, next){
   })(req, res, next);
 });
 
-router.post('/users', function(req, res, next){
+router.post('/users', async function(req, res, next){
 
   Promise.all([
     User.findOne({'email': req.body.user.email}),
     User.findOne({'username': req.body.user.username})
-  ]).then(function(results) {
+  ]).then(async function(results) {
 
     if (results[0] == null && results[1] == null) {
-      var user = new User();
 
-      user.username = req.body.user.username;
-      user.email = req.body.user.email;
-      user.setPassword(req.body.user.password);
-      user.idsocial = req.body.user.email;
+      user = await utils.addUser(req.body);
 
-      user.save().then(function(){
-        return res.json({user: user.toAuthJSON()});
-      }).catch(next);
+      return res.json({user: user.toAuthJSON()});
 
     }else {
       res.status(422).json('User duplicated');
       console.log('fail');
-    }
+    }// end
 
   });
 

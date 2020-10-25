@@ -80,24 +80,10 @@ router.post('/users', async function(req, res, next){
     }// end
 
   });
+});
 
-  // User.findOne({ 'email' : req.body.user.email }, function(err, response) {
-  //   if (response == null) {
-  //     var user = new User();
-    
-  //     user.username = req.body.user.username;
-  //     user.email = req.body.user.email;
-  //     user.setPassword(req.body.user.password);
-  //     user.idsocial = req.body.user.email;
-    
-  //     user.save().then(function(){
-  //       return res.json({user: user.toAuthJSON()});
-  //     }).catch(next);
-  //   }else {
-  //     res.status(422).json(err);
-  //     console.log('fail');
-  //   }
-  // })
+router.delete('/users', auth.required, async function(req, res, next) {
+  console.log(req.payload.id);
 });
 
 router.post('/users/sociallogin', function(req, res, next){

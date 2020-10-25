@@ -15,3 +15,17 @@ exports.addUser = async function(values) {
           return false
       });
 }// end_addUser
+
+exports.deleteUser = async function(user) {
+
+}// end_deleteUser
+
+exports.createTesting = async function() {
+    let user = await User.findOne({ username: 'testing' });
+
+    if (!user) {
+        user = await addUser({ username: 'testing', email: 'testing@gmail.com', password: 'testing1', idsocial: 'testing@gmail.com' });
+    }// end_if
+
+    return user;
+}// end_createTesting

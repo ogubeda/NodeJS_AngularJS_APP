@@ -4,6 +4,7 @@ var Song = mongoose.model("Song");
 var auth = require('../auth');
 var User = mongoose.model('User');
 var Comment = mongoose.model('Comment');
+let songUtils = require('../../utils/songs.utils');
 
 let deleteSong = require('../../utils/songs.utils.js');
 
@@ -176,11 +177,9 @@ router.delete("/:song", auth.required, function (req, res, next) { //search by s
 
     if (user.username === userUpload.username) {
       
-      deleteSong(req.song);
-
-      //   return req.song.remove().then(function(){
-      //     return res.sendStatus(204);
-      // });
+      if (songUtils.deleteSong(req.song)) {
+          return res.sendStatus(204);
+      }
     }else return res.sendStatus(403);
   }).catch(next);
 });

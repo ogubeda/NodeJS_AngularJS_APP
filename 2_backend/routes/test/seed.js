@@ -1,26 +1,13 @@
 const faker = require('faker');
-const boom = require('boom');
 const mongoose = require('mongoose');
 let router = require('express').Router();
 let Song = mongoose.model('Song');
 let Comment = mongoose.model('Comment');
-let User = mongoose.model('User');
 let utilsUser = require('../../utils/users.utils');
 
-
-
-
-router.post('/songs/:qty', async (req, res, next) => {
+router.post('/songs/:qty', async (req, res) => {
     try {
-        let songs = [];
-
-        let user = await User.findOne({ username: 'testing' });
-
-        if (!user) {
-            user = await utilsUser.addUser({ username: 'testing', email: 'testing@gmail.com', password: 'testing1', idsocial: 'testing@gmail.com' });
-        }// end_if
-
-        // console.log(user.toJSON());
+        let user = await utilsUser.createTesting();
 
         for (let i = 0; i < req.params.qty; i++) {
             let song = new Song();
@@ -32,15 +19,13 @@ router.post('/songs/:qty', async (req, res, next) => {
             song.tagList = [faker.fake('{{random.word}}'), faker.fake('{{random.word}}'), faker.fake('{{random.word}}')];
             song.uploaded = user.toJSON();
 
-            songs.push(song.toJSONFor(user));
+            await song.save()
         }// end_for
 
-        // await Song.insertMany(songs);
-
-        return res.json({ test: 'hola' })
+        return res.json({ res: 'Songs added.' });
     } catch (e) {
         console.log(e);
-    }
+    }// end_catch
 });
 
 module.exports = router;

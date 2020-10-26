@@ -149,8 +149,6 @@ router.get("/:song", auth.optional,function (req, res, next) {
 
 router.post("/", auth.required, function (req, res, next) {
   User.findById(req.payload.id).then(function (user) {
-    console.log(user);
-
     if (!user) { return res.sendStatus(401); }
 
     var song = new Song(req.body.song);

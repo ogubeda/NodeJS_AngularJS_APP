@@ -28,4 +28,25 @@ router.post('/songs/:qty', async (req, res) => {
     }// end_catch
 });
 
+router.post('/comments/:song/:qty', async (req, res) => {
+    try {
+        let user = await utilsUser.createTesting();
+        let song = await Song.findOne({slug: req.params.song})
+
+        for (let i = 0; i < req.params.qty; i++) {
+            let comment = new Comment({body: faker.fake('{{lorem.sentence}}')});
+            comment.author = user;
+            comment.song = song
+            await comment.save();
+
+            song.comments = song.comments.concat([comment]);
+            await song.save();
+
+        }// end_for
+        return res.json({res: 'Comments added.'})
+    }catch(e) {
+        console.log(e);
+    }// end_catch
+});
+
 module.exports = router;

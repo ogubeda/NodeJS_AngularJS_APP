@@ -16,10 +16,6 @@ exports.addUser = async function(values) {
       });
 }// end_addUser
 
-exports.deleteUser = async function(user) {
-
-}// end_deleteUser
-
 exports.createTesting = async function() {
     let user = await User.findOne({ username: 'testing' });
 

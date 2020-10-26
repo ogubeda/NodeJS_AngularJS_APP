@@ -82,10 +82,6 @@ router.post('/users', async function(req, res, next){
   });
 });
 
-router.delete('/users', auth.required, async function(req, res, next) {
-  console.log(req.payload.id);
-});
-
 router.post('/users/sociallogin', function(req, res, next){
   let memorystore = req.sessionStore;
   let sessions = memorystore.sessions;

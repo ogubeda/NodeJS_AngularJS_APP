@@ -37,7 +37,7 @@ if (!isProduction) {
 if(isProduction){
   mongoose.connect(process.env.MONGODB_URI);
 } else {
-  mongoose.connect('mongodb://mongo/conduit_nodejs');
+  mongoose.connect('mongodb://mongo:27017/conduit_nodejs');
   mongoose.set('debug', true);
 }
 

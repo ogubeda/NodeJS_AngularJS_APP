@@ -43,7 +43,7 @@ function mongooseConnect() {
       mongoose.set('useNewUrlParser', true);
       mongoose.set('useUnifiedTopology', true);
       try {
-        mongoose.connect('mongodb://localhost/conduit_nodejs');
+        mongoose.connect('mongodb://mongo:27017/conduit_nodejs');
       } catch (error) {
         console.log(error);
         

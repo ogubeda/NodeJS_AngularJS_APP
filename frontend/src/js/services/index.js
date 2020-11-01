@@ -4,6 +4,9 @@ import angular from 'angular';
 let servicesModule = angular.module('app.services', []);
 
 
+import GraphQLClientService from './graphql.service';
+servicesModule.service('GraphQLClient', GraphQLClientService);
+
 import UserService from './user.service';
 servicesModule.service('User', UserService);
 
@@ -27,6 +30,9 @@ servicesModule.service('Songs', SongsService);
 
 import ToastrService from './toastr.service';
 servicesModule.service('Toastr', ToastrService);
+
+import GroupsService from './groups.service';
+servicesModule.service('Groups', GroupsService);
 
 
 export default servicesModule;

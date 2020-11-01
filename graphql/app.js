@@ -43,7 +43,7 @@ function mongooseConnect() {
       mongoose.set('useNewUrlParser', true);
       mongoose.set('useUnifiedTopology', true);
       try {
-        mongoose.connect('mongodb://mongo/conduit_nodejs');
+        mongoose.connect('mongodb://localhost/conduit_nodejs');
       } catch (error) {
         console.log(error);
         
@@ -61,17 +61,11 @@ function mongooseConnect() {
 
 mongooseConnect()
 
-require('./models/User');
-require('./models/Article');
-require('./models/Comment');
 
-require('./models/adventures/Adventure');
-require('./models/restaurants/Restaurant');
-require('./models/travels/Country');
-require('./models/travels/City');
-require('./models/travels/Travel');
-require('./models/hotels/Room');
-require('./models/hotels/Hotel');
+
+require('./models/groups/Group');
+require('./models/users/User')
+
 
 app.use(require('./routes'));
 //// Swagger ////

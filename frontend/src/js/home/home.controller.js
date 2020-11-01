@@ -1,5 +1,5 @@
 class HomeCtrl {
-  constructor(AppConstants, tagList, User, $scope) {
+  constructor(AppConstants, tagList, User, $scope, Groups) {
     'ngInject';
 
     this.appName = AppConstants.appName;
@@ -11,8 +11,11 @@ class HomeCtrl {
         order: !User.current ? ["favoritesCount", 'desc']: null,
       }
     }
-    this.currentList = Object.assign({}, this.listConfig)
+    this.currentList = Object.assign({}, this.listConfig);
+
+    Groups.query().then(res => console.log(res));
   }// end_constructor 
+
 
   changeList(newList) {
     this._$scope.$broadcast('setListTo', newList);

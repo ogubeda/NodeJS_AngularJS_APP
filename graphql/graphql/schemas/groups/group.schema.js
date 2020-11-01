@@ -13,7 +13,7 @@ const typeDefs = gql `
         creationDate: String
         albums: [String]
         image: String
-        favoritesCount: Number
+        favoritesCount: Int
     }
 `;
 

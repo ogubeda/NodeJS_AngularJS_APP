@@ -8,13 +8,16 @@ let songUtils = require('../../utils/songs.utils');
 let userUtils = require('../../utils/users.utils');
 
 
-router.param('song', function (req, res, next, slug) {
-  Song.findOne({ slug: slug })
-    .then(function (song) {
-      if (!song) { return res.sendStatus(404); }
-      req.song = song;
-      return next();
-    }).catch(next);
+router.param('song', async function (req, res, next, slug) {
+  try {
+    song = await Song.findOne({slug: slug});
+    if (!song) return res.sendStatus(404);
+    req.song = song;
+
+    return next();
+  }catch(e) {
+    next();
+  }// end_catch
 });
 
 router.param('comment', function(req, res, next, id) {

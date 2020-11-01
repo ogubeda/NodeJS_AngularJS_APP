@@ -70,13 +70,12 @@ router.post('/users', async function(req, res, next){
 
     if (results[0] == null && results[1] == null) {
 
-      user = await utils.addUser(req.body);
+      user = await utils.addUser(req.body.user);
 
       return res.json({user: user.toAuthJSON()});
 
     }else {
       res.status(422).json('User duplicated');
-      console.log('fail');
     }// end
 
   });

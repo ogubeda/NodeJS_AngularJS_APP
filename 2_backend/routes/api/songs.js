@@ -5,9 +5,7 @@ var auth = require('../auth');
 var User = mongoose.model('User');
 var Comment = mongoose.model('Comment');
 let songUtils = require('../../utils/songs.utils');
-
-let deleteSong = require('../../utils/songs.utils.js');
-
+let userUtils = require('../../utils/users.utils');
 
 
 router.param('song', function (req, res, next, slug) {
@@ -175,35 +173,21 @@ router.delete("/:song", auth.required, function (req, res, next) { //search by s
 
     if (user.username === userUpload.username) {
       
-      if (songUtils.deleteSong(req.song)) {
+      if (songUtils.deleteSong(req.song, user)) {
           return res.sendStatus(204);
       }
     }else return res.sendStatus(403);
   }).catch(next);
 });
 
-//update hotel
-/*router.put("/:slug", function(req, res, next) { //search by slug
-  Hotels.update({ slug: req.params.slug }) //delete
-    .then(function(hotels) {
-      if (!hotels) { //id it doesn't exist, show error 401
-        return res.sendStatus(401);
-      } else {
-        return hotels.remove().then(function() { //if it exists, remove
-          return res.sendStatus(204);
-        });
-      }
-    })
-    .catch(next);
-});*/
-
-router.post('/:song/favorite', auth.required, function (req, res, next) {
+router.post('/:song/favorite', auth.required, async function (req, res, next) {
   var songId = req.song._id;
 
-  User.findById(req.payload.id).then(function (user) {
+  User.findById(req.payload.id).then(async function (user) {
     if (!user) { return res.sendStatus(401); }
 
-    return user.favorite(songId).then(function () {
+    return user.favorite(songId).then(async function () {
+      await userUtils.moreReputation(user, 20);
       return req.song.updateFavoriteCount().then(function (song) {
         return res.json({ song: song.toJSONFor(user)});
         // return res.json({ song: song });
@@ -218,7 +202,8 @@ router.delete('/:song/favorite', auth.required, function (req, res, next) {
   User.findById(req.payload.id).then(function (user) {
     if (!user) { return res.sendStatus(401); }
 
-    return user.unfavorite(songId).then(function () {
+    return user.unfavorite(songId).then(async function () {
+      await userUtils.lessReputation(user, 20);
       return req.song.updateFavoriteCount().then(function (song) {
         return res.json({ song: song.toJSONFor(user)});
       });
@@ -257,16 +242,22 @@ router.post('/:song/comments', auth.required, function(req, res, next) {
     return comment.save().then(function(){
       req.song.comments = req.song.comments.concat([comment]);
 
-      return req.song.save().then(function(song) {
+      return req.song.save().then(async function(song) {
+        await userUtils.moreReputation(user, 40)
         res.json({comment: comment.toJSONFor(user)});
       });
     });
   }).catch(next);
 });
 
-router.delete('/:song/comments/:comment', auth.required, function(req, res, next) {
+router.delete('/:song/comments/:comment', auth.required, async function(req, res, next) {
   if(req.comment.author.toString() === req.payload.id.toString()){
     req.song.comments.remove(req.comment._id);
+
+    user = await User.findById(req.payload.id);
+
+    await userUtils.lessReputation(user, 40);
+
     req.song.save()
       .then(Comment.find({_id: req.comment._id}).remove().exec())
       .then(function(){

@@ -1,5 +1,5 @@
 class HomeCtrl {
-  constructor(AppConstants, tagList, User, $scope, Groups) {
+  constructor(AppConstants, tagList, User, $scope) {
     'ngInject';
 
     this.appName = AppConstants.appName;
@@ -13,7 +13,7 @@ class HomeCtrl {
     }
     this.currentList = Object.assign({}, this.listConfig);
 
-    Groups.query().then(res => console.log(res));
+    // Groups.query().then(res => console.log(res));
   }// end_constructor 
 
 

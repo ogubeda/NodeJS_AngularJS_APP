@@ -9,11 +9,9 @@ exports.addUser = async function(values) {
       user.setPassword(values.password);
       user.idsocial = values.email;
 
-      user.save().then(function(){
-        return user;
-      }).catch(function() {
-          return false
-      });
+      await user.save();
+
+      return user;
 }// end_addUser
 
 exports.createTesting = async function() {
@@ -25,3 +23,13 @@ exports.createTesting = async function() {
 
     return user;
 }// end_createTesting
+
+exports.moreReputation = async function(user, num) {
+    user.addRep(num);
+}// end_moreReputation
+
+exports.lessReputation = async function(user, num) {
+    num = (user.reputation < num) ? user.reputation : num;
+
+    user.lessRep(num);
+}// end_lessReputation

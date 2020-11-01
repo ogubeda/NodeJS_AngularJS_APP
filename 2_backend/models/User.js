@@ -13,6 +13,7 @@ var UserSchema = new mongoose.Schema({
   following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   hash: String,
   salt: String,
+  reputation: {type: Number, default: 0},
   idsocial: {type: String, unique: false}
 }, {timestamps: true});
 
@@ -69,6 +70,16 @@ UserSchema.methods.favorite = function(id){
 
 UserSchema.methods.unfavorite = function(id){
   this.favorites.remove(id);
+  return this.save();
+};
+
+UserSchema.methods.addRep = function(num) {
+  this.reputation = this.reputation + num;
+  return this.save();
+};
+
+UserSchema.methods.lessRep = function(num) {
+  this.reputation = this.reputation - num;
   return this.save();
 };
 

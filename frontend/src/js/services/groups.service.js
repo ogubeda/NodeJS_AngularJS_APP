@@ -9,16 +9,16 @@ export default class Groups {
     }// end_constructor
 
     query (config) {
-        if (!config.filters.offset) {
-            config.filters.offset = 0;
-        }// end_if
-        if (!config.filters.limit) {
-            config.filters.limit = 0;
-        }// end_if
+        // if (!config.filters.offset) {
+        //     config.filters.offset = 0;
+        // }// end_if
+        // if (!config.filters.limit) {
+        //     config.filters.limit = 0;
+        // }// end_if
 
         let query = `
             query getGroups {
-                groups(limit: ${config.filters.limit}, offset: ${config.filters.offset}) {
+                groups {
                     id
                     slug
                     name

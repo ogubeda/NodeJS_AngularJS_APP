@@ -25,7 +25,7 @@ GroupSchema.pre('validate', function(next){
 });
 
 GroupSchema.methods.slugify = function() {
-  this.slug = slug(this.title) + '-' + (Math.random() * Math.pow(36, 6) | 0).toString(36);
+  this.slug = slug(this.name) + '-' + (Math.random() * Math.pow(36, 6) | 0).toString(36);
 };
 
 GroupSchema.methods.updateFavoriteCount = function() {

@@ -12,8 +12,6 @@ class HomeCtrl {
       }
     }
     this.currentList = Object.assign({}, this.listConfig);
-
-    // Groups.query().then(res => console.log(res));
   }// end_constructor 
 
 

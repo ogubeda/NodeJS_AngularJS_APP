@@ -5,6 +5,9 @@ const typeDefs = gql `
         group(slug: String!): Group
         groups: [Group]
     }
+    extend type Mutation {
+        addGroup(input: GroupInput): Group
+    }
     type Group {
         id: ID!
         slug: String!
@@ -14,6 +17,12 @@ const typeDefs = gql `
         albums: [String]
         image: String
         favoritesCount: Int
+    }
+    input GroupInput {
+        name: String!
+        singers: [String]
+        creationDate: String
+        albums: [String]
     }
 `;
 

@@ -39,4 +39,10 @@ componentsModule.component('comment', Comment);
 import SongActions from './song-helpers/song-actions.component';
 componentsModule.component('songActions', SongActions);
 
+import GroupsList from './groups-helpers/groups-list.component';
+componentsModule.component('groupsList', GroupsList);
+
+import GroupsPreview from './groups-helpers/groups-preview.component';
+componentsModule.component('groupsPreview', GroupsPreview);
+
 export default componentsModule;

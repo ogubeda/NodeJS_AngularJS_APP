@@ -9,6 +9,16 @@ const resolvers = {
         groups: () => {
             return Group.find().exec();
         }
+    },
+    Mutation: {
+        addGroup: (root, {input}) => {
+
+            console.log(input);
+
+            const group = new Group(input);
+            group.save();
+            return group;
+        }
     }
 }
 

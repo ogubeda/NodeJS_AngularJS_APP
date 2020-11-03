@@ -17,17 +17,17 @@ export default class GraphQL {
 
     createClient(server = this._AppConstants.api_gql) {
         return new ApolloClient({
-            link: createHttpLink({uri: server}),
+            link: createHttpLink({uri: server + '/graphql/'}),
             cache: new InMemoryCache()
         });
     }// end_createClient
 
     createAuthClient() {
         return new ApolloClient({
-            link: this.createAuthClient().concat(createHttpLink({uri: this._AppConstants.api_gql + '/graphqlauth/'})),
+            link: this.createAuthLink().concat(createHttpLink({ uri: this._AppConstants.api_gql + '/graphqlauth/' })),
             cache: new InMemoryCache()
         });
-    }// end_createAuthClient
+    }
 
     createAuthLink() {
         return setContext((_, {headers}) => {
@@ -49,7 +49,7 @@ export default class GraphQL {
         }// end_if
 
         this._clients.get(server).query({
-            query: qql(query)
+            query: gql(query)
         }).then((res) => deferred.resolve(res.data), (err) => deferred.reject(err));
 
         return deferred.promise;

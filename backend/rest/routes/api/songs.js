@@ -119,6 +119,7 @@ router.get("/:song", auth.optional, async function (req, res, next) {
 router.post("/", auth.required, async function (req, res, next) {
   try {
     let user = await User.findById(req.payload.id);
+    let group = songUtils.requestGroup("rise-against-cc1b4v");
     if (!user) return res.sendStatus(401);
 
     let song = new Song(req.body.song);

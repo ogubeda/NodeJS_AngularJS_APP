@@ -45,7 +45,7 @@ GroupSchema.methods.toJSONFor = function(){
     singers: this.singers,
     creationDate: this.creationDate,
     albums: this.albums,
-    image: this.image ? this.image : 'images/songs/default-song.png',  
+    image: this.image ? this.image : 'images/songs/default-group.jpeg',  
     favoritesCount: this.favoritesCount,
     favorited: user ? user.isFavorite(this._id) : false,
   };

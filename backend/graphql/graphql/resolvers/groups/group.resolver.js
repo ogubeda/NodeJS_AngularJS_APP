@@ -6,12 +6,14 @@ const resolvers = {
         group: (root, {slug}) => {
             return Group.findOne({slug: slug}).exec();
         },
-        groups: () => {
-            return Group.find().exec();
+        groups: (root, {order}) => {
+            return Group.find().sort({[order]: 'desc'}).exec();
         }
     },
     Mutation: {
         addGroup: (root, {input}) => {
+            console.log(input);
+
             const group = new Group(input);
             group.save();
             return group;

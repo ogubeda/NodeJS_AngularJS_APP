@@ -5,6 +5,9 @@ class HomeCtrl {
     this.appName = AppConstants.appName;
     this.tagList = tagList;
     this._$scope = $scope;
+    this.listConfigGroups = {
+      order: 'favoritesCount'
+    }
     this.listConfig = {
       type: User.current ? 'feed': 'all',
       filters: {

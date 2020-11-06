@@ -3,7 +3,7 @@ import { gql } from 'apollo-server-express';
 const typeDefs = gql `
     extend type Query {
         group(slug: String!): Group
-        groups: [Group]
+        groups(order: String): [Group]
     }
     extend type Mutation {
         addGroup(input: GroupInput): Group

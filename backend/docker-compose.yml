@@ -8,6 +8,7 @@ services:
         working_dir: /app
         volumes:
             - ./rest:/app
+            - ./models:/app/models
         ports:
             - "3000:3000"
         links: 
@@ -22,6 +23,7 @@ services:
         working_dir: /app
         volumes:
             - ./graphql:/app
+            - ./models:/app/models
         ports:
             - "3002:3002"
         links: 

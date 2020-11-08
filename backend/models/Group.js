@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 var uniqueValidator = require('mongoose-unique-validator');
 var slug = require('slug');
-require('../users/User');
 var User = mongoose.model('User');
 
 var GroupSchema = new mongoose.Schema({

@@ -29,8 +29,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(require('method-override')());
-// app.use(express.static(__dirname + '/public'));
-app.use('/group', express.static(path.join(__dirname, '/../models/')))
+app.use(express.static(__dirname + '/public'));
+// app.use('/group', express.static(path.join(__dirname, '/../models/')))
 
 app.use(session({ secret: 'conduit', cookie: { maxAge: 60000 }, resave: false, saveUninitialized: false  }));
 
@@ -64,7 +64,7 @@ function mongooseConnect() {
 
 mongooseConnect()
 
-// fs.readdir('../', function(err, files) {
+// fs.readdir('../app/models', function(err, files) {
 //   console.log('BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB');
 
 //   console.log(files);
@@ -72,7 +72,9 @@ mongooseConnect()
 
 // })
 
-require('./models/groups/Group');
+require('./models/User');
+require('./models/Group');
+// require('./models/groups/Group');
 
 app.use(require('./routes'));
 //// Swagger ////

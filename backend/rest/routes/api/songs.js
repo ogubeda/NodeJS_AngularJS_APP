@@ -55,7 +55,7 @@ router.get("/", auth.optional, async function (req, res, next) {
     if(favoriter) query._id = {$in: favoriter.favorites};
     else if(req.query.favorited) query._id = {$in: []};
 
-    let songs = await Song.find(query).limit(Number(limit)).skip(Number(offset)).sort(order).populate('uploaded').exec();
+    let songs = await Song.find(query).limit(Number(limit)).skip(Number(offset)).sort(order).populate('uploaded').populate('group').exec();
     let songsCount = await Song.count(query).exec();
     let user = req.payload ? await User.findById(req.payload.id) : null;
 
@@ -82,7 +82,7 @@ router.get('/feed', auth.required, async function(req, res, next) {
 
     if (!user) return res.sendStatus(401);
 
-    let songs = await Song.find({ uploaded: {$in: user.following}}).limit(Number(limit)).skip(Number(offset)).populate('uploaded').exec();
+    let songs = await Song.find({ uploaded: {$in: user.following}}).limit(Number(limit)).skip(Number(offset)).populate('uploaded').populate('group').exec();
     let songsCount = await Song.count({ uploaded: {$in: user.following}});
 
     return res.json({
@@ -119,11 +119,14 @@ router.get("/:song", auth.optional, async function (req, res, next) {
 router.post("/", auth.required, async function (req, res, next) {
   try {
     let user = await User.findById(req.payload.id);
-    let group = songUtils.requestGroup("rise-against-cc1b4v");
+    
     if (!user) return res.sendStatus(401);
+    let group = await songUtils.requestGroup(req.body.song.group);
 
     let song = new Song(req.body.song);
     song.uploaded = user;
+    song.group = group.id;
+
     await song.save();
 
     return res.json({song:song.toJSONFor(user)})

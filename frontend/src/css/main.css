@@ -8,6 +8,7 @@
 
 #container-tagList {
     padding: 25px 150px;
+    flex: 1 1 30%
 }
 .home-tittle {
     font-family: Staatliches;

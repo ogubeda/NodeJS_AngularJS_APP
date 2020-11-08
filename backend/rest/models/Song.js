@@ -6,7 +6,7 @@ var User = mongoose.model('User');
 var SongSchema = new mongoose.Schema({
   slug: {type: String, lowercase: true, unique: true},
   title: String,
-  group: String,
+  group: {type: mongoose.Schema.Types.ObjectId, ref: 'Group'},
   image: String,
   duration: Number,
   favoritesCount: {type: Number, default: 0},

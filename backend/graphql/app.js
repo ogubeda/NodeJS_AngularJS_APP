@@ -11,6 +11,8 @@ var http = require('http'),
     swaggerUi = require('swagger-ui-express');
 //// Swagger ////
 var swaggerDocument = require('./swagger.json');
+let fs = require('fs');
+
 swaggerDocument.host="localhost:3002"
 
 var isProduction = process.env.NODE_ENV === 'production';
@@ -27,7 +29,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(require('method-override')());
-app.use(express.static(__dirname + '/public'));
+// app.use(express.static(__dirname + '/public'));
+app.use('/group', express.static(path.join(__dirname, '/../models/')))
 
 app.use(session({ secret: 'conduit', cookie: { maxAge: 60000 }, resave: false, saveUninitialized: false  }));
 
@@ -61,11 +64,15 @@ function mongooseConnect() {
 
 mongooseConnect()
 
+// fs.readdir('../', function(err, files) {
+//   console.log('BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB');
 
+//   console.log(files);
+//   console.log('BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB');
+
+// })
 
 require('./models/groups/Group');
-require('./models/users/User')
-
 
 app.use(require('./routes'));
 //// Swagger ////

@@ -45,6 +45,7 @@ require('./models/User');
 require('./models/Article');
 require('./models/Comment');
 require('./models/Song');
+require('./models/Group');
 require('./config/passport');
 
 app.use(passport.initialize());

@@ -38,6 +38,8 @@ router.get("/", auth.optional, async function (req, res, next) {
   var limit = 20;
   var offset = 0;
 
+  console.log(req.query);
+
   let order = req.query.order ? {[req.query.order[0]]: req.query.order[1]} : {createdAt: 'desc'};
 
   if(typeof req.query.limit !== 'undefined') limit = req.query.limit;
@@ -49,11 +51,16 @@ router.get("/", auth.optional, async function (req, res, next) {
   try {
     let uploaded = req.query.uploaded ? await User.findOne({username: req.query.uploaded}) : null;
     let favoriter = req.query.favorited ? await User.findOne({username: req.query.favorited}) : null;
+    let group = req.query.group ? await songUtils.requestGroup(req.query.group) : null;
 
     if(uploaded) query.uploaded = uploaded._id;
 
+    if (group) query.group = group.id
+
     if(favoriter) query._id = {$in: favoriter.favorites};
     else if(req.query.favorited) query._id = {$in: []};
+
+    console.log(query);
 
     let songs = await Song.find(query).limit(Number(limit)).skip(Number(offset)).sort(order).populate('uploaded').populate('group').exec();
     let songsCount = await Song.count(query).exec();

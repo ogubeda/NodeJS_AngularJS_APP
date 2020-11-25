@@ -7,6 +7,20 @@ var Comment = mongoose.model('Comment');
 let songUtils = require('../../utils/songs.utils');
 let userUtils = require('../../utils/users.utils');
 
+let client = require('prom-client');
+
+const collectDefaultMetrics = client.collectDefaultMetrics;
+collectDefaultMetrics({timeout: 5000});
+
+const counterSongsEndPoint = new client.Counter({
+  name: 'counterSongsEndPoint',
+  help: 'Total songs request in the endpoint'
+});
+const counterSongEndPoint = new client.Counter({
+  name: 'counterSongEndPoint',
+  help: 'Single song request in the endpoint'
+});
+
 
 router.param('song', async function (req, res, next, slug) {
   try {
@@ -34,6 +48,7 @@ router.param('comment', async function(req, res, next, id) {
 });
 
 router.get("/", auth.optional, async function (req, res, next) {
+  counterSongsEndPoint.inc();
   var query = {};
   var limit = 20;
   var offset = 0;
@@ -113,6 +128,7 @@ router.get("/taglist", async function (req, res, next) {
 });
 
 router.get("/:song", auth.optional, async function (req, res, next) {
+  counterSongEndPoint.inc();
   try {
     let user = req.payload ? await User.findById(req.payload.id) : null;
     await req.song.populate('uploaded').execPopulate();

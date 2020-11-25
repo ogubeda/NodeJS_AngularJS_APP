@@ -3,6 +3,7 @@ version: "3"
 services:
     rest:
         image: mhart/alpine-node:8
+        container_name: rest_yolanda
         command: npm run dev
         restart: on-failure
         working_dir: /app
@@ -15,6 +16,8 @@ services:
             - 'mongo'
         depends_on:
             - 'mongo'
+        networks:
+            - network_practica
 
     graphql:
         image: mhart/alpine-node:8
@@ -30,6 +33,8 @@ services:
             - 'mongo'
         depends_on:
             - 'mongo'
+        networks:
+            - network_practica
 
     mongo:
         image: mvertes/alpine-mongo
@@ -37,3 +42,40 @@ services:
             - "27017:27017"
         volumes:
             - /data/db
+        networks:
+            - network_practica
+
+    prometheus:
+        ports:
+            - '9090:9090'
+        container_name: 'prometheus_practica2'
+        image: 'prom/prometheus:v2.20.1'
+        volumes:
+            - "./prometheus:/etc/prometheus"
+        command: --config.file=/etc/prometheus/prometheus.yml
+        networks: 
+            - network_practica
+        depends_on: 
+            - rest
+
+    grafana:
+        depends_on:
+            - prometheus
+        ports:
+            - '3500:3000'
+        container_name: 'grafana_practica2'
+        image: 'grafana/grafana:7.1.5'
+        environment: 
+            - GF_AUTH_DISABLE_LOGIN_FORM=true
+            - GF_AUTH_ANONYMOUS_ENABLED=true
+            - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+            - GF_INSTALL_PLUGINS=grafana-clock-panel 1.0.1
+        networks: 
+            - network_practica
+        volumes:
+            - 'myGrafanaVol:/var/lib/grafana'
+            - './grafana:/etc/grafana/provision/datasources'
+networks:
+    network_practica:
+volumes:
+    myGrafanaVol:
